@@ -66,6 +66,7 @@
 		for (let [r,c] of snakeBody){
 			grid[r][c] = 'snake'
 		}
+		grid[snakeHead[0]][snakeHead[1]] = 'snakeHead'
 	}
 	$: {
 		if (snakeHead[1]<gridSize && snakeHead[1]>=0 && snakeHead[0]<gridSize && snakeHead[0]>=0){
@@ -99,7 +100,7 @@
 		{#each grid as row}
 			<div class='row'>
 				{#each row as cell}
-					<div class={cell=='empty'? 'empty': (cell=='snake'? 'snake': 'food')}></div>
+					<div class={cell=='empty'? 'empty': (cell=='snake'? 'snake': (cell=='food'? 'food' : 'snake-head' ))}></div>
 				{/each}
 			</div>
 		{/each}
@@ -150,6 +151,13 @@
 		border: 1px solid black;
 		margin: .5px;
 		background-color: yellow;
+	}
+	.snake-head{
+		height: 20px;
+		width: 20px;
+		border: 1px solid black;
+		margin: .5px;
+		background-color: rgb(192, 53, 3);
 	}
 	.score-card{
 		display: flex;
