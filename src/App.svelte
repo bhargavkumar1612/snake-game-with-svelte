@@ -153,24 +153,29 @@
 			</div>
 		{/each}
 	</div>
+	
 	<div class='md-move-buttons'>
-		<div class="single-btn">
-			<button class="dir-btn" on:click={()=>{direction=[-1, 0]}}>{"^"}</button>
-		</div>
-		<div class='double-btn'>
-			<button class="dir-btn-double" on:click={()=>{direction=[0,-1]}}>{"<"}</button>
-			<button class="dir-btn-double" on:click={()=>{direction=[0,1]}}>{">"}</button>
-		</div>
-		<div class="single-btn">
-			<button class="dir-btn" on:click={()=>{direction=[1, 0]}}>{"v"}</button>
-		</div>
+		{#if dead}
+			<h2 class='dead'>You Lost!!</h2>
+			<button class="md-restart-button" on:click={restart}>Restart</button>
+		{:else}
+			<div class="single-btn">
+				<button class="dir-btn" on:click={()=>{direction=[-1, 0]}}>{"^"}</button>
+			</div>
+			<div class='double-btn'>
+				<button class="dir-btn-double" on:click={()=>{direction=[0,-1]}}>{"<"}</button>
+				<button class="dir-btn-double" on:click={()=>{direction=[0,1]}}>{">"}</button>
+			</div>
+			<div class="single-btn">
+				<button class="dir-btn" on:click={()=>{direction=[1, 0]}}>{"v"}</button>
+			</div>
+		{/if}
 	</div>
 	<div class='score-card'>
 		<h1>Score <span class="score">{score}</span></h1>
 		{#if dead}
-			<h2 class='dead'>You Lost!!</h2>
+			<h2 class='dead-lg'>You Lost!!</h2>
 			<h2 class='lg-info'>Hit ENTER to restart.</h2>
-			<button class="md-restart-button" on:click={restart}>Restart</button>
 		{/if}
 	</div>
 </div>
@@ -240,6 +245,9 @@
 	.dead{
 		color: red;
 	}
+	.dead-lg{
+		color: red;
+	}
 	.lg-info{
 		color: green;
 	}
@@ -295,6 +303,9 @@
 			font-weight: 900;
 			font-size: 20px;
 			background-color: antiquewhite;
+		}
+		.dead-lg{
+			display: none;
 		}
 	}
 </style>
