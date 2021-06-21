@@ -78,7 +78,6 @@
 
 	function restart(){
 		if (dead){
-			console.log('>>')
 			snakeHead = [parseInt(gridSize/2),parseInt(gridSize/2)];
 			grid = [...Array(gridSize)].map(()=>[...Array(gridSize)].map(()=>'empty'))
 			direction = [0,1]
@@ -92,27 +91,90 @@
 		
 	}
 
+// touch event handling functions
+
+
+// window.addEventListener('load', function(){
+ 
+//  var touchsurface = document.getElementById('game-container'),
+// 	 startX,
+// 	 startY,
+// 	 dist,
+// 	 threshold = 150, //required min distance traveled to be considered swipe
+// 	 allowedTime = 200, // maximum time allowed to travel that distance
+// 	 elapsedTime,
+// 	 startTime
+
+//  function handleswipe(isrightswipe){
+// 	 if (isrightswipe)
+// 		 touchsurface.innerHTML = 'Congrats, you\'ve made a <span style="color:red">right swipe!</span>'
+// 	 else{
+// 		 touchsurface.innerHTML = 'Condition for right swipe not met yet'
+// 	 }
+//  }
+
+//  touchsurface.addEventListener('touchstart', function(e){
+// 	 touchsurface.innerHTML = ''
+// 	 var touchobj = e.changedTouches[0]
+// 	 dist = 0
+// 	 startX = touchobj.pageX
+// 	 startY = touchobj.pageY
+// 	 startTime = new Date().getTime() // record time when finger first makes contact with surface
+// 	 e.preventDefault()
+//  }, false)
+
+//  touchsurface.addEventListener('touchmove', function(e){
+// 	 e.preventDefault() // prevent scrolling when inside DIV
+//  }, false)
+
+//  touchsurface.addEventListener('touchend', function(e){
+// 	 var touchobj = e.changedTouches[0]
+// 	 dist = touchobj.pageX - startX // get total dist traveled by finger while in contact with surface
+// 	 elapsedTime = new Date().getTime() - startTime // get time elapsed
+// 	 // check that elapsed time is within specified, horizontal dist traveled >= threshold, and vertical dist traveled <= 100
+// 	 var swiperightBol = (elapsedTime <= allowedTime && dist >= threshold && Math.abs(touchobj.pageY - startY) <= 100)
+// 	 handleswipe(swiperightBol)
+// 	 e.preventDefault()
+//  }, false)
+
+// }, false) // end window.onload
+
 </script>
 
-<div class="game-container">
+<body>
+<div class="game-container" id="game-container">
 	<div class="snake-box">
 		<h1 class="title">Snake game</h1>
 		{#each grid as row}
 			<div class='row'>
 				{#each row as cell}
-					<div class={cell=='empty'? 'empty': (cell=='snake'? 'snake': (cell=='food'? 'food' : 'snake-head' ))}></div>
+					<div class={`cell ${cell=='empty'? 'empty': (cell=='snake'? 'snake': (cell=='food'? 'food' : 'snake-head' ))}`}></div>
 				{/each}
 			</div>
 		{/each}
 	</div>
+	<div class='md-move-buttons'>
+		<div class="single-btn">
+			<button class="dir-btn" on:click={()=>{direction=[-1, 0]}}>{"^"}</button>
+		</div>
+		<div class='double-btn'>
+			<button class="dir-btn-double" on:click={()=>{direction=[0,-1]}}>{"<"}</button>
+			<button class="dir-btn-double" on:click={()=>{direction=[0,1]}}>{">"}</button>
+		</div>
+		<div class="single-btn">
+			<button class="dir-btn" on:click={()=>{direction=[1, 0]}}>{"v"}</button>
+		</div>
+	</div>
 	<div class='score-card'>
 		<h1>Score <span class="score">{score}</span></h1>
 		{#if dead}
-		<h2 class='dead'>You Lost!!</h2>
-		<h2 class='info'>Hit ENTER to restart.</h2>
+			<h2 class='dead'>You Lost!!</h2>
+			<h2 class='lg-info'>Hit ENTER to restart.</h2>
+			<button class="md-restart-button" on:click={restart}>Restart</button>
 		{/if}
 	</div>
 </div>
+</body>
 
 <style>
 	.game-container{
@@ -122,6 +184,9 @@
 		background-color: #2f456789;
 		height: 100%;
 	}
+	.md-move-buttons{
+		display: none;
+	}
 	.snake-box{
 		display: flex;
 		flex-direction: column;
@@ -130,35 +195,29 @@
 		max-width: 70%;
 		margin-right: 10%;
 	}
+	
 	.row{
 		display: flex;
 	}
-	.empty{
+	.cell{
 		height: 20px;
 		width: 20px;
-		border: 1px solid black;
 		margin: .5px;
+	}
+	.empty{
+		border: 1px solid black;
 		background-color: rgb(72, 134, 189);
 	}
 	.snake{
-		height: 20px;
-		width: 20px;
 		border: 1px solid black;
-		margin: .5px;
 		background-color: rgb(157, 219, 133);
 	}
 	.snake-head{
-		height: 20px;
-		width: 20px;
 		border: 1px solid black;
-		margin: .5px;
 		background-color: rgb(39, 233, 39);
 	}
 	.food{
-		height: 20px;
-		width: 20px;
 		border: 1px solid black;
-		margin: .5px;
 		background-color: rgb(248, 248, 226);
 		border-radius: 50%;
 	}
@@ -181,8 +240,62 @@
 	.dead{
 		color: red;
 	}
-	.info{
+	.lg-info{
 		color: green;
+	}
+	@media (max-width: 770px){
+		.game-container{
+			display: block;
+		}
+		.snake-box{
+			max-width: 100%;
+		}
+		.score-card{
+			max-width: 100%;
+			order: -1;
+		}
+		.cell{
+			height: 15px;
+			width: 15px;
+			margin: .5px;
+		}
+		.lg-info{
+			display: none;
+		}
+		.md-restart-button{
+			color: green;
+			border: 0;
+			padding: 10px;
+			font-size: 20px;
+			font-weight: 600;
+			background-color: antiquewhite;
+		}
+		.md-move-buttons{
+			display:block;
+			display:flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			padding: 20px;
+		}
+		.dir-btn{
+			width: 50px;
+			height: 70px;
+			color: black;
+			font-weight: 900;
+			font-size: 20px;
+			background-color: antiquewhite;
+		}
+		.dir-btn-double{
+			width: 70px;
+			height: 50px;
+			margin-right: 25px;
+			margin-left: 25px;
+			color: black;
+			font-weight: 900;
+			font-size: 20px;
+			background-color: antiquewhite;
+		}
 	}
 </style>
 
