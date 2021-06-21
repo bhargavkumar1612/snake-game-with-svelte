@@ -255,8 +255,8 @@
 			order: -1;
 		}
 		.cell{
-			height: 15px;
-			width: 15px;
+			height: 10px;
+			width: 10px;
 			margin: .5px;
 		}
 		.lg-info{
@@ -280,14 +280,14 @@
 		}
 		.dir-btn{
 			width: 50px;
-			height: 70px;
+			height: 50px;
 			color: black;
 			font-weight: 900;
 			font-size: 20px;
 			background-color: antiquewhite;
 		}
 		.dir-btn-double{
-			width: 70px;
+			width: 50px;
 			height: 50px;
 			margin-right: 25px;
 			margin-left: 25px;
