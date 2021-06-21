@@ -96,7 +96,7 @@
 
 <div class="game-container">
 	<div class="snake-box">
-		<h1>Snake game</h1>
+		<h1 class="title">Snake game</h1>
 		{#each grid as row}
 			<div class='row'>
 				{#each row as cell}
@@ -106,7 +106,7 @@
 		{/each}
 	</div>
 	<div class='score-card'>
-		<h1>Score {score}</h1>
+		<h1>Score <span class="score">{score}</span></h1>
 		{#if dead}
 		<h2 class='dead'>You Lost!!</h2>
 		<h2 class='info'>Hit ENTER to restart.</h2>
@@ -119,7 +119,8 @@
 		display: flex;
 		justify-content: center;
 		width: 100%;
-		height: 90vh;
+		background-color: #2f456789;
+		height: 100%;
 	}
 	.snake-box{
 		display: flex;
@@ -137,28 +138,31 @@
 		width: 20px;
 		border: 1px solid black;
 		margin: .5px;
+		background-color: rgb(72, 134, 189);
 	}
 	.snake{
 		height: 20px;
 		width: 20px;
 		border: 1px solid black;
 		margin: .5px;
-		background-color: orangered;
-	}
-	.food{
-		height: 20px;
-		width: 20px;
-		border: 1px solid black;
-		margin: .5px;
-		background-color: yellow;
+		background-color: rgb(157, 219, 133);
 	}
 	.snake-head{
 		height: 20px;
 		width: 20px;
 		border: 1px solid black;
 		margin: .5px;
-		background-color: rgb(192, 53, 3);
+		background-color: rgb(39, 233, 39);
 	}
+	.food{
+		height: 20px;
+		width: 20px;
+		border: 1px solid black;
+		margin: .5px;
+		background-color: rgb(248, 248, 226);
+		border-radius: 50%;
+	}
+	
 	.score-card{
 		display: flex;
 		flex-direction: column;
@@ -166,8 +170,19 @@
 		justify-content: center;
 		max-width: 30%;
 	}
+	.title{
+		color: white;
+		font-size: 30px;
+	}
+	.score{
+		color: rgb(231, 193, 193);
+		font-size: 30px;
+	}
 	.dead{
 		color: red;
+	}
+	.info{
+		color: green;
 	}
 </style>
 
