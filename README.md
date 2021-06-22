@@ -1,7 +1,7 @@
 *Looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
 
 ---
-
+Snake Game Play here--> [degit](https://vigorous-panini-70a699.netlify.app/)
 # svelte app
 
 This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
